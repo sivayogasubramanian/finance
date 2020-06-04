@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        {% for key, value in stock_summary.items() %}
+        <tr>
+            {% if key in stock_summary_2.keys() %}
+                {% if value > 0 %}
+                    <td>{{ key }}</td>
+                    <td>{{ stock_summary_2[key][0] }}</td>
+                    <td>{{ value }}</td>
+                    <td>${{ "{:.2f}".format(stock_summary_2[key][1]) }}</td>
+                    <td>${{ "{:.2f}".format(value * stock_summary_2[key][1]) }}</td></td>
+                {% endif %}
+            {% endif %}
+        </tr>
+        {% endfor %}
+        <tr>
+            <td><b>CASH</b></td>
+            <td colspan="3"></td>
+            <td>${{ "{:.2f}".format(cash_left) }}</td>
+        </tr>
+        <tr>
+            <td colspan="4"></td>
+            <td>${{ "{:.2f}".format(grand_total_portfolio_value) }}</td>
+        </tr>
+    </table>
+{% endblock %}
